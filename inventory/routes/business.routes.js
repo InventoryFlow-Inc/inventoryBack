@@ -3,7 +3,8 @@ import {
   getBusinesses,
   createBusiness,
   deleteBusiness,
-  approveBusiness
+  approveBusiness,
+  revertBusiness
 } from "../controllers/business.controller.js";
 
 const router = express.Router();
