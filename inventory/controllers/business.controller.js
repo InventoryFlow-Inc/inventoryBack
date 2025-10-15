@@ -73,3 +73,24 @@ export const approveBusiness = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+// Revert a business back to pending
+export const revertBusiness = async (req, res) => {
+  try {
+    const business = await Business.findById(req.params.id);
+    if (!business) return res.status(404).json({ message: "Business not found" });
+
+    business.status = "pending";
+    await business.save();
+
+    // Also update the corresponding user if exists
+    const user = await User.findOne({ email: business.email });
+    if (user) {
+      user.status = "pending";
+      await user.save();
+    }
+
+    res.json({ message: "Business reverted to pending", business });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

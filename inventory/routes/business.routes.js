@@ -12,5 +12,6 @@ router.get("/", getBusinesses);
 router.post("/", createBusiness);
 router.patch("/:id/approve", approveBusiness); // ✅ approve business
 router.delete("/:id", deleteBusiness);
+router.put("/revert/:id", revertBusiness);
 
 export default router;
